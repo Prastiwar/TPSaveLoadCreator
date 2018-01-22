@@ -8,17 +8,17 @@ public class DemoSaveLoadScript : MonoBehaviour
     [Persistance]
     public string _String;
 
-    [Persistance]
-    public bool _Bool;
+    //[Persistance]
+    //public bool _Bool;
 
-    [Persistance]
-    public int _Int;
+    //[Persistance]
+    //public int _Int;
 
-    [Persistance]
-    public float _Float;
+    //[Persistance]
+    //public float _Float;
 
-    [Persistance]
-    public int[] _Array;
+    //[Persistance]
+    //public int[] _Array;
 
     //void Awake()
     //{

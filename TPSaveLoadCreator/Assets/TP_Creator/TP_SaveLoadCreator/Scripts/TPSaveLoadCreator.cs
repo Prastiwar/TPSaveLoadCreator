@@ -25,8 +25,7 @@ namespace TP_SaveLoad
         public string SaveName;
         public string ExtensionName;
 
-        List<object> PersistanceObjects = new List<object>();
-        public List<int> PersistanceObjectsID = new List<int>();
+        public Dictionary<string, object> RealObjects;
 
         void Start()
         {
@@ -67,10 +66,10 @@ namespace TP_SaveLoad
             string path = GetSaveLoadPath();
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(path);
-            PersistanceObjectsID.Clear();
+            if(RealObjects != null)
+            RealObjects.Clear();
             PersistanceAttribute(true);
-            SaveID();
-            bf.Serialize(file, PersistanceObjects);
+            bf.Serialize(file, RealObjects);
         }
 
         public void Load()
@@ -82,63 +81,40 @@ namespace TP_SaveLoad
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(path, FileMode.Open);
             object serializedObject = bf.Deserialize(file);
-            List<System.Object> objects = serializedObject as List<System.Object>;
-            PersistanceObjects = objects;
-            LoadID();
+            Dictionary<string, object> objects = serializedObject as Dictionary<string, object>;
+            RealObjects = objects;
             PersistanceAttribute(false);
             file.Close();
-        }
-        void SaveID()
-        {
-            string path = GetSaveLoadPath() + "ID";
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream fileID = File.Create(path);
-            bf.Serialize(fileID, PersistanceObjectsID);
-        }
-        void LoadID()
-        {
-            string path = GetSaveLoadPath() + "ID";
-            if (!File.Exists(path))
-                return;
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream fileID = File.Open(path, FileMode.Open);
-            object serializedObjectID = bf.Deserialize(fileID);
-            List<int> objectsID = serializedObjectID as List<int>;
-            PersistanceObjectsID = objectsID;
-            fileID.Close();
         }
 
         void PersistanceAttribute(bool ToSave)
         {
+            if (ToSave)
+                RealObjects = new Dictionary<string, object>();
+
             MonoBehaviour[] sceneActive = FindObjectsOfType<MonoBehaviour>();
-            int realIndex = 0;
-            foreach (MonoBehaviour mono in sceneActive)
+            int length = sceneActive.Length;
+            for (int m = 0; m < length; m++)
             {
+                var mono = sceneActive[m];
                 FieldInfo[] objectFields = mono.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
 
-                if(ToSave)
-                    PersistanceObjectsID.Add(mono.GetInstanceID());
-
-                for (int i = 0; i < objectFields.Length; i++)
+                int fieldsLength = objectFields.Length;
+                for (int i = 0; i < fieldsLength; i++)
                 {
                     Persistance attribute = Attribute.GetCustomAttribute(objectFields[i], typeof(Persistance)) as Persistance;
                     if (attribute != null)
                     {
+                        string TKey = mono.GetInstanceID() + "_" + i;
+
                         if (ToSave)
                         {
-                            PersistanceObjects.Add(objectFields[i].GetValue(mono));
+                            RealObjects.Add(TKey, objectFields[i].GetValue(mono));
                         }
                         else
                         {
-                            foreach (int IDIndex in PersistanceObjectsID)
-                            {
-                                Debug.Log(IDIndex);
-                                if (mono.GetInstanceID() == PersistanceObjectsID[IDIndex])
-                                {
-                                    objectFields[i].SetValue(mono, PersistanceObjects[realIndex]);
-                                }
-                            }
-                            realIndex++;
+                            if(RealObjects.ContainsKey(TKey))
+                                objectFields[i].SetValue(mono, RealObjects[TKey]);
                         }
                     }
 
