@@ -167,6 +167,16 @@ Prefab:
       propertyPath: _Float2
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114151824119377292, guid: e5b96503e33be264f9f078f09bde857b,
+        type: 2}
+      propertyPath: _ring2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114151824119377292, guid: e5b96503e33be264f9f078f09bde857b,
+        type: 2}
+      propertyPath: _Bool2
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5b96503e33be264f9f078f09bde857b, type: 2}
   m_IsPrefabParent: 0
@@ -179,6 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 499315264}
   - component: {fileID: 499315265}
+  - component: {fileID: 499315266}
   m_Layer: 0
   m_Name: DemoSaveLoad
   m_TagString: Untagged
@@ -197,7 +208,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &499315265
 MonoBehaviour:
@@ -210,7 +221,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b0c5033ada1f44c9cc0cb71072f694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _String: 1
+  _String: 5
+  _Bool: 1
+  _Int: 0
+  _Float: 0
+  _Array: 
+--- !u!114 &499315266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 499315263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccaa03d828057ce4c8d7483c8ead612f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: PersistantObject_0
 --- !u!1 &893096174
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +301,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &918779254
 GameObject:
@@ -355,7 +382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224177569
 GameObject:
@@ -400,7 +427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2055958360
 GameObject:
@@ -412,6 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2055958362}
   - component: {fileID: 2055958361}
+  - component: {fileID: 2055958363}
   m_Layer: 0
   m_Name: DemoSaveLoad2
   m_TagString: Untagged
@@ -432,6 +460,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _String2: 2
+  _Bool2: 0
+  _Int2: 0
+  _Float2: 0
 --- !u!4 &2055958362
 Transform:
   m_ObjectHideFlags: 0
@@ -444,5 +475,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2055958363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2055958360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccaa03d828057ce4c8d7483c8ead612f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 

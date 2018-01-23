@@ -2,35 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TP_SaveLoad;
+using System.Runtime.Serialization;
 
+[System.Serializable]
 public class DemoSaveLoadScript : MonoBehaviour
 {
     [Persistance]
     public string _String;
 
-    //[Persistance]
-    //public bool _Bool;
+    [Persistance]
+    public bool _Bool;
+
+    [Persistance]
+    public int _Int;
+
+    [Persistance]
+    public float _Float;
+
+    [Persistance]
+    public int[] _Array;
 
     //[Persistance]
-    //public int _Int;
-
-    //[Persistance]
-    //public float _Float;
-
-    //[Persistance]
-    //public int[] _Array;
-
-    //void Awake()
-    //{
-    //    _Cameraper = _Camera;
-    //}
-    //void Start()
-    //{
-    //    Debug.Log(_Cameraper);
-    //}
-
-    //[Persistance]
-    //public Object _Camera;
+    //public testso testss;
 
     //[Persistance]
     //public object _Cameraper;

@@ -25,17 +25,73 @@ namespace TP_SaveLoad
         public string SaveName;
         public string ExtensionName;
 
-        public Dictionary<string, object> RealObjects;
+        public Dictionary<string, object> PersistanceObjects = new Dictionary<string, object>();
+        //public TPSaveLoadData PersistanceData;
 
-        void Start()
+        void OnValidate()
         {
+            UnityEditor.MonoScript myScript = UnityEditor.MonoScript.FromMonoBehaviour(this);
+            if(UnityEditor.MonoImporter.GetExecutionOrder(myScript) < 50)
+                UnityEditor.MonoImporter.SetExecutionOrder(myScript, 50);
+        }
+        void Awake()
+        {
+            Debug.Log("Awake");
             Load();
         }
-        void OnApplicationQuit()
+        void OnDestroy()
         {
+            Debug.Log("Destroy");
             Save();
         }
 
+        public void SaveObject(MonoBehaviour mono, string ID)
+        {
+            FieldInfo[] objectFields = mono.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+
+            int fieldsLength = objectFields.Length;
+            for (int i = 0; i < fieldsLength; i++)
+            {
+                Persistance attribute = Attribute.GetCustomAttribute(objectFields[i], typeof(Persistance)) as Persistance;
+                if (attribute != null)
+                {
+                    string TKey = ID + i;
+
+                    if (!PersistanceObjects.ContainsKey(TKey))
+                    {
+                        PersistanceObjects.Add(TKey, objectFields[i].GetValue(mono));
+                    }
+                    else
+                    {
+                        PersistanceObjects.Remove(TKey);
+                        PersistanceObjects.Add(TKey, objectFields[i].GetValue(mono));
+                    }
+                }
+            }
+            Debug.Log("Save done " + mono);
+        }
+
+        public void LoadObject(MonoBehaviour mono, string ID)
+        {
+            FieldInfo[] objectFields = mono.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+
+            int fieldsLength = objectFields.Length;
+            for (int i = 0; i < fieldsLength; i++)
+            {
+                Persistance attribute = Attribute.GetCustomAttribute(objectFields[i], typeof(Persistance)) as Persistance;
+                if (attribute != null)
+                {
+                    string TKey = ID + i;
+
+                    if (PersistanceObjects.ContainsKey(TKey))
+                    {
+                        objectFields[i].SetValue(mono, PersistanceObjects[TKey]);
+                    }
+                }
+            }
+            Debug.Log("Load Done " + mono);
+        }
+    
         public string GetSaveLoadPath()
         {
             if (UseCustomPath)
@@ -66,10 +122,10 @@ namespace TP_SaveLoad
             string path = GetSaveLoadPath();
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(path);
-            if(RealObjects != null)
-            RealObjects.Clear();
-            PersistanceAttribute(true);
-            bf.Serialize(file, RealObjects);
+            //if (PersistanceObjects != null)
+            //    PersistanceObjects.Clear();
+            //PersistanceAttribute(true);
+            bf.Serialize(file, PersistanceObjects);
         }
 
         public void Load()
@@ -82,46 +138,56 @@ namespace TP_SaveLoad
             FileStream file = File.Open(path, FileMode.Open);
             object serializedObject = bf.Deserialize(file);
             Dictionary<string, object> objects = serializedObject as Dictionary<string, object>;
-            RealObjects = objects;
-            PersistanceAttribute(false);
+            PersistanceObjects = objects;
+            //PersistanceAttribute(false);
             file.Close();
         }
 
-        void PersistanceAttribute(bool ToSave)
-        {
-            if (ToSave)
-                RealObjects = new Dictionary<string, object>();
+        //void PersistanceAttribute(bool ToSave)
+        //{
+        //    if (ToSave)
+        //        PersistanceObjects = new Dictionary<string, object>();
 
-            MonoBehaviour[] sceneActive = FindObjectsOfType<MonoBehaviour>();
-            int length = sceneActive.Length;
-            for (int m = 0; m < length; m++)
-            {
-                var mono = sceneActive[m];
-                FieldInfo[] objectFields = mono.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+        //    MonoBehaviour[] sceneActive = FindObjectsOfType<MonoBehaviour>();
+        //    int length = sceneActive.Length;
 
-                int fieldsLength = objectFields.Length;
-                for (int i = 0; i < fieldsLength; i++)
-                {
-                    Persistance attribute = Attribute.GetCustomAttribute(objectFields[i], typeof(Persistance)) as Persistance;
-                    if (attribute != null)
-                    {
-                        string TKey = mono.GetInstanceID() + "_" + i;
+        //    for (int m = 0; m < length; m++)
+        //    {
+        //        var mono = sceneActive[m];
+        //        FieldInfo[] objectFields = mono.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
 
-                        if (ToSave)
-                        {
-                            RealObjects.Add(TKey, objectFields[i].GetValue(mono));
-                        }
-                        else
-                        {
-                            if(RealObjects.ContainsKey(TKey))
-                                objectFields[i].SetValue(mono, RealObjects[TKey]);
-                        }
-                    }
+        //        int fieldsLength = objectFields.Length;
+        //        for (int i = 0; i < fieldsLength; i++)
+        //        {
+        //            Persistance attribute = Attribute.GetCustomAttribute(objectFields[i], typeof(Persistance)) as Persistance;
+        //            if (attribute != null)
+        //            {
+        //                TPSaveLoadPersistance persistance = mono.GetComponent<TPSaveLoadPersistance>();
+        //                if (persistance == null)
+        //                    Debug.Log("error");
 
-                }
-            }
-        }
+        //                string TKey = persistance.ID.ToString() + i;
 
+        //                if (ToSave)
+        //                {
+        //                    if (!PersistanceObjects.ContainsKey(TKey))
+        //                    {
+        //                        PersistanceObjects.Add(TKey, objectFields[i].GetValue(mono));
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    if (PersistanceObjects.ContainsKey(TKey))
+        //                    {
+        //                        objectFields[i].SetValue(mono, PersistanceObjects[TKey]);
+        //                    }
+        //                }
+
+        //            }
+        //        }
+        //    }
+
+        //}
     }
 
     [AttributeUsage(AttributeTargets.Field)]
