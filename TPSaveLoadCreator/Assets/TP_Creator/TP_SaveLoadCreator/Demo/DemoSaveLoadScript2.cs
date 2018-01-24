@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TP_SaveLoad;
 using UnityEngine;
 
+[System.Serializable]
 public class DemoSaveLoadScript2 : MonoBehaviour
 {
     [Persistance]
