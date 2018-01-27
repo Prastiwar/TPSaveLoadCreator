@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 499315264}
   - component: {fileID: 499315265}
-  - component: {fileID: 499315266}
+  - component: {fileID: 499315267}
   m_Layer: 0
   m_Name: DemoSaveLoad
   m_TagString: Untagged
@@ -154,23 +154,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b0c5033ada1f44c9cc0cb71072f694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _String: 1
-  _UnityObject: {fileID: 893096174}
---- !u!114 &499315266
+  _String: 5
+  _Vector2: {x: 5, y: 0}
+--- !u!114 &499315267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 499315263}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccaa03d828057ce4c8d7483c8ead612f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: PersistantObject_0
+  ID: PersistantObject_1
   monos:
   - {fileID: 499315265}
-  - {fileID: 499315266}
+  - {fileID: 499315267}
 --- !u!1 &893096174
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +349,6 @@ MonoBehaviour:
   UseApplicationPath: 0
   SaveName: DemoSave
   ExtensionName: sav
-  PersistanceData: {fileID: 11400000, guid: ad8716f4088ef9944af0a3c9c3c3b7e6, type: 2}
 --- !u!4 &1224177571
 Transform:
   m_ObjectHideFlags: 0
@@ -363,6 +362,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1257599752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1257599753}
+  m_Layer: 0
+  m_Name: GameObjectTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257599753
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257599752}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.569767, y: 6.2588506, z: 2.1197143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2055958360
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2055958362}
   - component: {fileID: 2055958361}
-  - component: {fileID: 2055958363}
+  - component: {fileID: 2055958364}
   m_Layer: 0
   m_Name: DemoSaveLoad2
   m_TagString: Untagged
@@ -411,7 +438,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2055958363
+--- !u!114 &2055958364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -425,4 +452,4 @@ MonoBehaviour:
   ID: 
   monos:
   - {fileID: 2055958361}
-  - {fileID: 2055958363}
+  - {fileID: 2055958364}

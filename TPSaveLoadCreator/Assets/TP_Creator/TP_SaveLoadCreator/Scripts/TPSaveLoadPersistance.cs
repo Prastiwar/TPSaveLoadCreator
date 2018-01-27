@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TP_SaveLoad;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class TPSaveLoadPersistance : MonoBehaviour
 {
     public string ID;
@@ -12,6 +13,8 @@ public class TPSaveLoadPersistance : MonoBehaviour
 
     void OnValidate()
     {
+        //hideFlags = HideFlags.HideInInspector;
+        //hideFlags = HideFlags.None;
         UnityEditor.MonoScript myScript = UnityEditor.MonoScript.FromMonoBehaviour(this);
         if (UnityEditor.MonoImporter.GetExecutionOrder(myScript) < 80)
             UnityEditor.MonoImporter.SetExecutionOrder(myScript, 80);

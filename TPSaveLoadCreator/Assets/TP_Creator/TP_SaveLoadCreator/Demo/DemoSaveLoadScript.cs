@@ -22,6 +22,9 @@ public class DemoSaveLoadScript : MonoBehaviour
     //public int[] _Array;
 
     //[Persistance]
+    //public Vector2 _Vector2;
+
+    //[Persistance]
     //public UnityEngine.Object _UnityObject;
 
     //[Persistance]

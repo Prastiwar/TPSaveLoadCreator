@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -55,16 +56,15 @@ namespace TP_SaveLoad
                 {
                     string TKey = ID + mono.GetType() + i;
 
-                    var t = objectFields[i].FieldType;
+                    var t = objectFields[i].FieldType;//
                     if (t == typeof(UnityEngine.Object))//
-                    {
+                    {//
                         Objs obj = new Objs(TKey, objectFields[i].GetValue(mono) as UnityEngine.Object);//
-                        if(!PersistanceData.ContainsKey(TKey))
-                            PersistanceData.PersistanceObjects.Add(obj);
-                    }
-                    else
-                    {
-
+                        if (!PersistanceData.ContainsKey(TKey))//
+                            PersistanceData.PersistanceObjects.Add(obj);//
+                    }//
+                    else//
+                    {//
                         if (!PersistanceObjects.ContainsKey(TKey))
                         {
                             PersistanceObjects.Add(TKey, objectFields[i].GetValue(mono));
@@ -74,7 +74,7 @@ namespace TP_SaveLoad
                             PersistanceObjects.Remove(TKey);
                             PersistanceObjects.Add(TKey, objectFields[i].GetValue(mono));
                         }
-                    }
+                    }//
                 }
             }
         }
@@ -95,15 +95,15 @@ namespace TP_SaveLoad
                 {
                     string TKey = ID + mono.GetType() + i;
                     if (objectFields[i].FieldType == typeof(UnityEngine.Object))//
-                    {
-                        if(PersistanceData.ContainsKey(TKey))
-                            objectFields[i].SetValue(mono, PersistanceData.PersistanceObjects[0].Value);
-                    }
-                    else
-                    {
+                    {//
+                        if (PersistanceData.ContainsKey(TKey))//
+                            objectFields[i].SetValue(mono, PersistanceData.PersistanceObjects[0].Value);//
+                    }//
+                    else//
+                    {//
                         if (PersistanceObjects.ContainsKey(TKey))
                             objectFields[i].SetValue(mono, PersistanceObjects[TKey]);
-                    }
+                    }//
                 }
             }
         }
@@ -132,13 +132,14 @@ namespace TP_SaveLoad
             }
             return null;
         }
-
+        
         public void Save()
         {
             string path = GetSaveLoadPath();
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(path);
             bf.Serialize(file, PersistanceObjects);
+            file.Close();
         }
 
         public void Load()
