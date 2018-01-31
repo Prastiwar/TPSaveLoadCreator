@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using TP_SaveLoad;
 
 [CustomEditor(typeof(TPSaveLoadPersistance))]
 public class TPSaveLoadPersistanceEditor : Editor
@@ -16,15 +17,18 @@ public class TPSaveLoadPersistanceEditor : Editor
         list = FindListObjectsOfType<TPSaveLoadPersistance>();
         length = list.Count;
     }
+
     public override void OnInspectorGUI()
     {
+        DrawPropertiesExcluding(serializedObject, "m_Script");
+
         for (int i = 0; i < length; i++)
         {
             if (thisObject.name != list[i].name) 
             {
                 if (thisObject.ID == list[i].ID)
                 {
-                    thisObject.ID = "PersistantObject_" + i;//System.Guid.NewGuid().ToString();
+                    thisObject.ID = System.Guid.NewGuid().ToString();//"PersistantObject_" + i;
                     Repaint();
                     break;
                 }

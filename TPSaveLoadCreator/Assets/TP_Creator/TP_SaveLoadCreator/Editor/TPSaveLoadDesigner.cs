@@ -31,8 +31,8 @@ namespace TP_SaveLoadEditor
         {
             if (currentScene != EditorSceneManager.GetActiveScene().name)
             {
-                //if (TPSaveLoadToolsWindow.window)
-                //    TPSaveLoadToolsWindow.window.Close();
+                if (TPSaveLoadToolsWindow.window)
+                    TPSaveLoadToolsWindow.window.Close();
                 if (window)
                     window.Close();
             }
@@ -132,8 +132,8 @@ namespace TP_SaveLoadEditor
         {
             if (EditorApplication.isPlaying)
             {
-                //if (TPSoundManagerToolsWindow.window)
-                //    TPSoundManagerToolsWindow.window.Close();
+                if (TPSaveLoadToolsWindow.window)
+                    TPSaveLoadToolsWindow.window.Close();
                 this.Close();
             }
             DrawLayouts();
@@ -171,6 +171,7 @@ namespace TP_SaveLoadEditor
             }
             else
             {
+                ToggleDebugMode();
                 ResetManager();
 
                 if (GUILayout.Button("Refresh and update", skin.button, GUILayout.Height(70)))
@@ -206,6 +207,32 @@ namespace TP_SaveLoadEditor
                 SaveLoadCreator = null;
         }
 
+        void ToggleDebugMode()
+        {
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Toggle Debug Mode", skin.button, GUILayout.Height(40)))
+            {
+                TPSaveLoadCreator.DebugMode = !TPSaveLoadCreator.DebugMode;
+                if (TPSaveLoadToolsWindow.window)
+                {
+                    UpdateManager();
+                    TPSaveLoadToolsWindow.window.Close();
+                }
+                if (SaveLoadCreator)
+                {
+                    MonoBehaviour[] monos = FindObjectsOfType<MonoBehaviour>();
+                    foreach (var mono in monos)
+                    {
+                        var item = mono.GetComponent<TPSaveLoadPersistance>();
+                        if (item != null)
+                            item.Refresh();
+                    }
+                }
+            }
+            GUILayout.Toggle(TPSaveLoadCreator.DebugMode, GUIContent.none, GUILayout.Width(15));
+            GUILayout.EndHorizontal();
+        }
+
         public static void UpdateManager()
         {
             if (SaveLoadCreator)
@@ -238,10 +265,18 @@ namespace TP_SaveLoadEditor
                 return;
             }
 
-            //if (GUILayout.Button("Savers", skin.button, GUILayout.Height(60)))
-            //{
-            //    TPSoundManagerToolsWindow.OpenToolWindow();
-            //}
+            if (GUILayout.Button("JSON Persistance", skin.button, GUILayout.Height(60)))
+            {
+                TPSaveLoadToolsWindow.OpenToolWindow(TPSaveLoadToolsWindow.Tool.JSON);
+            }
+            if (GUILayout.Button("XML Persistance", skin.button, GUILayout.Height(60)))
+            {
+                TPSaveLoadToolsWindow.OpenToolWindow(TPSaveLoadToolsWindow.Tool.XML);
+            }
+            if (GUILayout.Button("Binary Persistance", skin.button, GUILayout.Height(60)))
+            {
+                TPSaveLoadToolsWindow.OpenToolWindow(TPSaveLoadToolsWindow.Tool.Binary);
+            }
             GUILayout.EndArea();
         }
 

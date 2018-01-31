@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using TP_SaveLoad;
 
 namespace TP_SaveLoadEditor
 {
@@ -16,10 +17,18 @@ namespace TP_SaveLoadEditor
 
         public void OpenCreator()
         {
-            if (GUILayout.Button("Open Sound Manager", GUILayout.Height(30)))
+            if (TPSaveLoadCreator.DebugMode)
             {
-                TPSaveLoadDesigner.OpenWindow();
+                if (serializedObject.targetObject.hideFlags != HideFlags.NotEditable)
+                    serializedObject.targetObject.hideFlags = HideFlags.NotEditable;
+                return;
             }
+
+            if (serializedObject.targetObject.hideFlags != HideFlags.None)
+                serializedObject.targetObject.hideFlags = HideFlags.None;
+
+            if (GUILayout.Button("Open SaveLoad Manager", GUILayout.Height(30)))
+                TPSaveLoadDesigner.OpenWindow();
         }
     }
 }

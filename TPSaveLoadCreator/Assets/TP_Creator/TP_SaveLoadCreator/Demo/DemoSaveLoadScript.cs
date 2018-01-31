@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TP_SaveLoad;
 
-[System.Serializable]
 public class DemoSaveLoadScript : MonoBehaviour
 {
-    [Persistance]
+    [PersistantBinary]
     public string _String;
 
-    //[Persistance]
+    //[PersistantJSON("This is BOOL")]
     //public bool _Bool;
 
-    //[Persistance]
+    //[PersistantJSON("This is INT")]
     //public int _Int;
 
     //[Persistance]
@@ -27,7 +26,7 @@ public class DemoSaveLoadScript : MonoBehaviour
     //[Persistance]
     //public UnityEngine.Object _UnityObject;
 
-    //[Persistance]
+    //[PersistantXML("ObjTest")]
     //public GameObject _GameObject;
 
     //[Persistance]

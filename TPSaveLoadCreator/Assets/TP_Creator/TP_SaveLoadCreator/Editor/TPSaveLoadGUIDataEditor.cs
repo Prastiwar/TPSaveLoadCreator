@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using TP_SaveLoad;
 
 namespace TP_SaveLoadEditor
 {
@@ -11,11 +12,15 @@ namespace TP_SaveLoadEditor
         void OnEnable()
         {
             TPSoundData = (TPSaveLoadGUIData)target;
+            if (serializedObject.targetObject.hideFlags != HideFlags.NotEditable)
+                serializedObject.targetObject.hideFlags = HideFlags.NotEditable;
         }
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
+            EditorGUILayout.LabelField("Container for editor data");
+            if (!TPSaveLoadCreator.DebugMode)
+                return;
 
             EditorGUILayout.LabelField("GUI Skin");
             TPSoundData.GUISkin =
@@ -23,8 +28,6 @@ namespace TP_SaveLoadEditor
 
             if (GUI.changed)
                 EditorUtility.SetDirty(TPSoundData);
-
-            serializedObject.ApplyModifiedProperties();
         }
     }
 }

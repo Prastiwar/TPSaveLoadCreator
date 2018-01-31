@@ -4,22 +4,36 @@ using System.Collections.Generic;
 using TP_SaveLoad;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class TPSaveLoadPersistance : MonoBehaviour
 {
+    [PersistantID]
     public string ID;
     TPSaveLoadCreator creator;
     public MonoBehaviour[] monos;
 
     void OnValidate()
     {
-        //hideFlags = HideFlags.HideInInspector;
-        //hideFlags = HideFlags.None;
         UnityEditor.MonoScript myScript = UnityEditor.MonoScript.FromMonoBehaviour(this);
         if (UnityEditor.MonoImporter.GetExecutionOrder(myScript) < 80)
             UnityEditor.MonoImporter.SetExecutionOrder(myScript, 80);
-
+        if (ID == null) ID = Guid.NewGuid().ToString();
+        
         monos = GetComponents<MonoBehaviour>();
+    }
+   
+    public void Refresh()
+    {
+        OnValidate();
+        if (TPSaveLoadCreator.DebugMode)
+        {
+            if (hideFlags != HideFlags.NotEditable)
+                hideFlags = HideFlags.NotEditable;
+        }
+        else
+        {
+            if (hideFlags != HideFlags.HideInInspector)
+                hideFlags = HideFlags.HideInInspector;
+        }
     }
 
     void Awake()
