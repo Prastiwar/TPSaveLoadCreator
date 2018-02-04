@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
-using TP_SaveLoad;
+using TP.SaveLoad;
 
-namespace TP_SaveLoadEditor
+namespace TP.SaveLoadEditor
 {
     [CustomEditor(typeof(TPSaveLoadCreator))]
     public class TPSaveLoadCreatorEditor : ScriptlessSaveLoadEditor

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using TP_SaveLoad;
+using TP.SaveLoad;
 using UnityEditor.SceneManagement;
 
-namespace TP_SaveLoadEditor
+namespace TP.SaveLoadEditor
 {
     [InitializeOnLoad]
     public class TPSaveLoadDesigner : EditorWindow

@@ -362,6 +362,7 @@ MonoBehaviour:
     ReadablePersistance: []
   XMLWrapper:
     ReadablePersistance: []
+  MainHandWeapon: {fileID: 893096174}
 --- !u!4 &1224177571
 Transform:
   m_ObjectHideFlags: 0

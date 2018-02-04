@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using TP_SaveLoad;
+using TP.SaveLoad;
 
-namespace TP_SaveLoadEditor
+namespace TP.SaveLoadEditor
 {
     [CustomEditor(typeof(TPSaveLoadGUIData))]
     public class TPSoundManagerGUIDataEditor : ScriptlessSaveLoadEditor
     {
-        TPSaveLoadGUIData TPSoundData;
+        TPSaveLoadGUIData TPSaveLoadData;
 
         void OnEnable()
         {
-            TPSoundData = (TPSaveLoadGUIData)target;
+            TPSaveLoadData = (TPSaveLoadGUIData)target;
             if (serializedObject.targetObject.hideFlags != HideFlags.NotEditable)
                 serializedObject.targetObject.hideFlags = HideFlags.NotEditable;
         }
@@ -23,11 +23,11 @@ namespace TP_SaveLoadEditor
                 return;
 
             EditorGUILayout.LabelField("GUI Skin");
-            TPSoundData.GUISkin =
-                (EditorGUILayout.ObjectField(TPSoundData.GUISkin, typeof(GUISkin), true) as GUISkin);
+            TPSaveLoadData.GUISkin =
+                (EditorGUILayout.ObjectField(TPSaveLoadData.GUISkin, typeof(GUISkin), true) as GUISkin);
 
             if (GUI.changed)
-                EditorUtility.SetDirty(TPSoundData);
+                EditorUtility.SetDirty(TPSaveLoadData);
         }
     }
 }

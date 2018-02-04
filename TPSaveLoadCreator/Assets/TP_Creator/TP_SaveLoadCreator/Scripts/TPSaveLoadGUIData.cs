@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TP_SaveLoadEditor
+namespace TP.SaveLoadEditor
 {
     public class TPSaveLoadGUIData : ScriptableObject
     {

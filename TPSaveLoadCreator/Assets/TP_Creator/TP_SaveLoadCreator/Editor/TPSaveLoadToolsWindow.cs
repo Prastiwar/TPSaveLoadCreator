@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace TP_SaveLoadEditor
+namespace TP.SaveLoadEditor
 {
     [InitializeOnLoad]
     internal class TPSaveLoadToolsWindow : EditorWindow
@@ -203,11 +203,11 @@ namespace TP_SaveLoadEditor
             switch (tool)
             {
                 case Tool.JSON:
-                    return TPSaveLoadDesigner.SaveLoadCreator.JSONMethod.UseApplicationPath == TP_SaveLoad.TPSaveLoadCreator.ApplicationPath.Custom;
+                    return TPSaveLoadDesigner.SaveLoadCreator.JSONMethod.UseApplicationPath == TP.SaveLoad.TPSaveLoadCreator.ApplicationPath.Custom;
                 case Tool.XML:
-                    return TPSaveLoadDesigner.SaveLoadCreator.XMLMethod.UseApplicationPath == TP_SaveLoad.TPSaveLoadCreator.ApplicationPath.Custom;
+                    return TPSaveLoadDesigner.SaveLoadCreator.XMLMethod.UseApplicationPath == TP.SaveLoad.TPSaveLoadCreator.ApplicationPath.Custom;
                 case Tool.Binary:
-                    return TPSaveLoadDesigner.SaveLoadCreator.BinaryMethod.UseApplicationPath == TP_SaveLoad.TPSaveLoadCreator.ApplicationPath.Custom;
+                    return TPSaveLoadDesigner.SaveLoadCreator.BinaryMethod.UseApplicationPath == TP.SaveLoad.TPSaveLoadCreator.ApplicationPath.Custom;
                 default:
                     break;
             }
