@@ -2,13 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fca71177e204cfb4e98771c4eb189195, type: 3}
+  m_Script: {fileID: 1646894871, guid: 8a6a3f5bc1b279247851ac75c6158cd7, type: 3}
   m_Name: SaveLoadEditorGUIData
   m_EditorClassIdentifier: 
-  GUISkin: {fileID: 11400000, guid: 4d1130a004528024ea7e55a7a5ed1f96, type: 2}
+  GUISkin: {fileID: 11400000, guid: af0cada3f5c6833429629cea45077b9c, type: 2}
+  Prefab: {fileID: 0}
+  Paths: []

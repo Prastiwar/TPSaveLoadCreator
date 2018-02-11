@@ -2,6 +2,7 @@
 using UnityEditor;
 using TP.SaveLoad;
 using UnityEditor.SceneManagement;
+using TP.Utilities;
 
 namespace TP.SaveLoadEditor
 {
@@ -38,7 +39,7 @@ namespace TP.SaveLoadEditor
             }
         }
 
-        public static TPSaveLoadGUIData EditorData;
+        public static TPEditorGUIData EditorData;
         public static TPSaveLoadCreator SaveLoadCreator;
         public static GUISkin skin;
 
@@ -67,9 +68,13 @@ namespace TP.SaveLoadEditor
 
         void InitEditorData()
         {
+            string path = "Assets/TP_Creator/_CreatorResources/";
+            if (!System.IO.Directory.Exists(path))
+                System.IO.Directory.CreateDirectory(path);
+
             EditorData = AssetDatabase.LoadAssetAtPath(
-                   "Assets/TP_Creator/TP_SaveLoadCreator/EditorResources/SaveLoadEditorGUIData.asset",
-                   typeof(TPSaveLoadGUIData)) as TPSaveLoadGUIData;
+                   path + "SaveLoadEditorGUIData.asset",
+                   typeof(TPEditorGUIData)) as TPEditorGUIData;
             
             if (EditorData == null)
                 CreateEditorData();
@@ -83,7 +88,7 @@ namespace TP.SaveLoadEditor
         {
             if (EditorData.GUISkin == null)
                 EditorData.GUISkin = AssetDatabase.LoadAssetAtPath(
-                      "Assets/TP_Creator/TP_SaveLoadCreator/EditorResources/TPSaveLoadGUISkin.guiskin",
+                      "Assets/TP_Creator/_CreatorResources/TPEditorGUISkin.guiskin",
                       typeof(GUISkin)) as GUISkin;
 
             EditorUtility.SetDirty(EditorData);
@@ -91,8 +96,8 @@ namespace TP.SaveLoadEditor
 
         void CreateEditorData()
         {
-            TPSaveLoadGUIData newEditorData = ScriptableObject.CreateInstance<TPSaveLoadGUIData>();
-            AssetDatabase.CreateAsset(newEditorData, "Assets/TP_Creator/TP_SaveLoadCreator/EditorResources/SaveLoadEditorGUIData.asset");
+            TPEditorGUIData newEditorData = ScriptableObject.CreateInstance<TPEditorGUIData>();
+            AssetDatabase.CreateAsset(newEditorData, "Assets/TP_Creator/_CreatorResources/SaveLoadEditorGUIData.asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             EditorData = newEditorData;
